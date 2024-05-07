@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pe.gob.senamhi.contratacionesapp.entities.Contratacion;
 import pe.gob.senamhi.contratacionesapp.repositories.IContratacionRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -13,6 +14,11 @@ public class ContratacionService {
     private IContratacionRepository contratacionRepository;
 
     public Contratacion save(Contratacion contratacion) {
+        contratacion.setFechaCreacion(LocalDate.now());
+        return contratacionRepository.save(contratacion);
+    }
+
+    public Contratacion update(Contratacion contratacion) {
         return contratacionRepository.save(contratacion);
     }
 

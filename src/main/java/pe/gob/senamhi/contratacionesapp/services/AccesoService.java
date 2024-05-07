@@ -2,7 +2,6 @@ package pe.gob.senamhi.contratacionesapp.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pe.gob.senamhi.contratacionesapp.entities.Acceso;
 import pe.gob.senamhi.contratacionesapp.repositories.IAccesoRepository;
 
 import java.time.LocalDate;
@@ -15,6 +14,9 @@ public class AccesoService {
 
     public Acceso save(Acceso acceso) {
         acceso.setFechaCreacion(LocalDate.now());
+        return accesoRepository.save(acceso);
+    }
+    public Acceso update(Acceso acceso) {
         return accesoRepository.save(acceso);
     }
 

@@ -1,6 +1,6 @@
 package pe.gob.senamhi.contratacionesapp.services;
 
-import jakarta.annotation.PostConstruct;
+import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;

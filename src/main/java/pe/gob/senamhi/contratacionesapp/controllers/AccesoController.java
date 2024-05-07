@@ -3,7 +3,6 @@ package pe.gob.senamhi.contratacionesapp.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pe.gob.senamhi.contratacionesapp.entities.Acceso;
 import pe.gob.senamhi.contratacionesapp.services.AccesoService;
 
 import java.util.List;
@@ -37,7 +36,7 @@ public class AccesoController {
     }
     @PutMapping
     public ResponseEntity<Acceso> update(@RequestBody Acceso acceso) {
-        return ResponseEntity.ok(accesoService.save(acceso));
+        return ResponseEntity.ok(accesoService.update(acceso));
     }
 
 

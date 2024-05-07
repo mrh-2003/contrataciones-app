@@ -2,6 +2,7 @@ package pe.gob.senamhi.contratacionesapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.gob.senamhi.contratacionesapp.entities.Proveedor;
 import pe.gob.senamhi.contratacionesapp.entities.Trabajador;
@@ -14,6 +15,7 @@ public class SenamhiController {
     @Autowired
     private SenamhiService senamhiService;
     @GetMapping("/trabajadores/findByDni/{dni}")
+    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Trabajador> findTrabajadorByDni(@PathVariable("dni")  String dni) {
         return ResponseEntity.ok(senamhiService.findTrabajadorByDni(dni));
     }
