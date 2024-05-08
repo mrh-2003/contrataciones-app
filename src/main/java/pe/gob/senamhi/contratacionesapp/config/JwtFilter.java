@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import pe.gob.senamhi.contratacionesapp.services.UserService;
+import pe.gob.senamhi.contratacionesapp.services.AccesoService;
 
 import java.io.IOException;
 
@@ -19,7 +19,7 @@ import java.io.IOException;
 public class JwtFilter extends OncePerRequestFilter {
 
 	@Autowired
-	UserService userService;
+	AccesoService accesoService;
 
 	@Autowired
 	JwtGeneratorValidator jwtgenVal;
@@ -39,9 +39,9 @@ public class JwtFilter extends OncePerRequestFilter {
 
 		if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-			UserDetails userDetails = userService.loadUserByUsername(userName);
+			UserDetails userDetails = accesoService.loadUserByUsername(userName);
 
-			if (jwtgenVal.validateToken(token, userDetails)) {
+			if (jwtgenVal.validateToken(token, userDetails.getUsername())) {
 
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = jwtgenVal.getAuthenticationToken(token, SecurityContextHolder.getContext().getAuthentication(), userDetails);
                 usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

@@ -15,11 +15,12 @@ public class SenamhiController {
     @Autowired
     private SenamhiService senamhiService;
     @GetMapping("/trabajadores/findByDni/{dni}")
-    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_USUARIO', 'ROLE_ADMINISTRADOR')")
     public ResponseEntity<Trabajador> findTrabajadorByDni(@PathVariable("dni")  String dni) {
         return ResponseEntity.ok(senamhiService.findTrabajadorByDni(dni));
     }
     @GetMapping("/proveedores/findByDniRuc/{dniRuc}")
+    @PreAuthorize("hasAnyAuthority('ROLE_USUARIO', 'ROLE_ADMINISTRADOR')")
     public ResponseEntity<Proveedor> findProveedorByDniRuc(@PathVariable("dniRuc")  String dniRuc) {
         return ResponseEntity.ok(senamhiService.findProveedorByDniRUc(dniRuc));
     }

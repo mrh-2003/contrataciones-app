@@ -13,7 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import pe.gob.senamhi.contratacionesapp.services.UserService;
+import pe.gob.senamhi.contratacionesapp.services.AccesoService;
 
 @Configuration
 @EnableWebSecurity
@@ -21,7 +21,7 @@ import pe.gob.senamhi.contratacionesapp.services.UserService;
 public class SecurityConfig {
 
 	@Autowired
-	UserService userDetailsService;
+	AccesoService userDetailsService;
 
 
 	@Bean

@@ -10,7 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import pe.gob.senamhi.contratacionesapp.services.UserService;
+import pe.gob.senamhi.contratacionesapp.services.AccesoService;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class JwtGeneratorValidator {
 	
 	@Autowired
-    UserService userService;
+    AccesoService accesoService;
 	
     private final String SECRET = "codeWithRaman";
 
@@ -60,9 +60,9 @@ public class JwtGeneratorValidator {
                 .signWith(SignatureAlgorithm.HS256, SECRET).compact();
     }
 
-    public Boolean validateToken(String token, UserDetails userDetails) {
+    public Boolean validateToken(String token, String usernameDetails) {
         final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        return (username.equals(usernameDetails) && !isTokenExpired(token));
     }
     
     public UsernamePasswordAuthenticationToken getAuthenticationToken(final String token, final Authentication existingAuth, final UserDetails userDetails) {
