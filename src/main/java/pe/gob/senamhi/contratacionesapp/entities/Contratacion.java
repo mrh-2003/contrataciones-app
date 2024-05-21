@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Data
 public class Contratacion {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long codigo;
     @ManyToOne
     private Formato formato;
@@ -30,6 +30,10 @@ public class Contratacion {
     private String codigoSenamhi;
     @Column(nullable = false)
     private String codigoSede;
+    @Column(nullable = false)
+    private String sede;
+    @Column(nullable = false)
+    private Long codigoAcceso;
     @Column(nullable = false)
     private String url;
     @Column(nullable = false)
@@ -50,4 +54,6 @@ public class Contratacion {
     private String telefono;
     @Column(nullable = false)
     private String correo;
+
+
 }

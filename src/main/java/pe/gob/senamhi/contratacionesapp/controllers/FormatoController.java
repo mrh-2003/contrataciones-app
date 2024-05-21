@@ -6,6 +6,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -31,27 +32,32 @@ public class FormatoController {
     private HttpServletRequest request;
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('ROLE_USUARIO', 'ROLE_ADMINISTRADOR')")
     public ResponseEntity<List<Formato>> findAll() {
         return ResponseEntity.ok(formatoService.findAll());
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ROLE_USUARIO', 'ROLE_ADMINISTRADOR')")
     public ResponseEntity<Formato> findById(@PathVariable("id")  Long id) {
         return ResponseEntity.ok(formatoService.findById(id));
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRADOR')")
     public ResponseEntity<Void> deleteById(@PathVariable("id")  Long id) {
         formatoService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRADOR')")
     public ResponseEntity<Formato> save(@RequestBody Formato formato) {
         return ResponseEntity.ok(formatoService.save(formato));
     }
 
     @PutMapping("/update")
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRADOR')")
     public ResponseEntity<Map<String, String>> updateFile(@RequestParam(value = "file", required = false) MultipartFile file,
                                                           @RequestParam("descripcion") String descripcion,
                                                           @RequestParam("id") String id) {
@@ -71,6 +77,7 @@ public class FormatoController {
         return ResponseEntity.ok(Map.of("url", url));
     }
     @PostMapping("/upload")
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRADOR')")
     public ResponseEntity<Map<String, String>> uploadFile(@RequestParam("file") MultipartFile file,
                                                           @RequestParam("descripcion") String descripcion) {
         String url = saveFile(file);

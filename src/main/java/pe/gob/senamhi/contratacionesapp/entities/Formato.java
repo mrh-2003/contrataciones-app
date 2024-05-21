@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Data
 public class Formato {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long codigo;
     @Column(nullable = false)
     private String descripcion;

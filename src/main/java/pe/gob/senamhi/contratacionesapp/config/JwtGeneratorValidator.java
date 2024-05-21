@@ -56,7 +56,7 @@ public class JwtGeneratorValidator {
     	String role =authentication.getAuthorities().stream()
   	     .map(r -> r.getAuthority()).collect(Collectors.toSet()).iterator().next();
         return Jwts.builder().claim("role",role).setSubject(authentication.getName()).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(5)))
+                .setExpiration(new Date(System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(120)))
                 .signWith(SignatureAlgorithm.HS256, SECRET).compact();
     }
 

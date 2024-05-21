@@ -20,5 +20,6 @@ public class AccesoDTO {
     private String codigoSenamhi;
     private LocalDate fechaCreacion;
     private Boolean estado;
+
 }
 

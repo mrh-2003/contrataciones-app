@@ -1,6 +1,8 @@
 package pe.gob.senamhi.contratacionesapp.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -8,10 +10,12 @@ import java.util.HashSet;
 import java.util.Set;
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name= "accesos")
 public class Acceso {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long codigo;
 	@Column(nullable = false, unique = true)
     private String usuario;
@@ -20,7 +24,13 @@ public class Acceso {
 	@Column(nullable = false)
 	private String nombres;
 	@Column(nullable = false)
+	private String codigoCargo;
+	@Column(nullable = false)
 	private String cargo;
+	@Column(nullable = false)
+	private String codigoSede;
+	@Column(nullable = false)
+	private String sede;
 	@Column(nullable = false)
 	private String dni;
 	@Column(nullable = false)
@@ -37,5 +47,6 @@ public class Acceso {
 	public void setRole(Role role) {
 		this.roles.add(role);
 	}
+
 
 }

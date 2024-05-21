@@ -1,6 +1,7 @@
 package pe.gob.senamhi.contratacionesapp.services;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -67,12 +68,15 @@ public class AccesoService implements UserDetailsService {
 	public Acceso findById(Long id) {
 		return accesoRepository.findById(id).orElse(null);
 	}
+	public Acceso findByNombreUsuario(String username) {
+		return accesoRepository.findByUsuario(username);
+	}
 
 	public void deleteById(Long id) {
 		accesoRepository.deleteById(id);
 	}
 
 	public List<Acceso> findAll() {
-		return accesoRepository.findAll();
+		return accesoRepository.findAll(Sort.by(Sort.Direction.DESC, "codigo"));
 	}
 }

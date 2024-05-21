@@ -1,6 +1,7 @@
 package pe.gob.senamhi.contratacionesapp.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import pe.gob.senamhi.contratacionesapp.entities.Formato;
 import pe.gob.senamhi.contratacionesapp.repositories.IFormatoRepository;
@@ -24,7 +25,7 @@ public class FormatoService {
     }
 
     public List<Formato> findAll() {
-        return formatoRepository.findAll();
+        return formatoRepository.findAll(Sort.by(Sort.Direction.DESC, "codigo"));
     }
 
 }

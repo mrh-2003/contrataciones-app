@@ -13,13 +13,15 @@ public class SenamhiService {
     private ITrabajadorRepository trabajadorRepository;
     @Autowired
     private IProveedorRepository proveedorRepository;
-
     public Trabajador findTrabajadorByDni(String dni) {
         return trabajadorRepository.findByDni(dni);
     }
-
     public Proveedor findProveedorByDniRUc(String dniRuc) {
         return proveedorRepository.findByDniRuc(dniRuc);
+    }
+
+    public Trabajador save(Trabajador trabajador) {
+        return trabajadorRepository.save(trabajador);
     }
 
    }

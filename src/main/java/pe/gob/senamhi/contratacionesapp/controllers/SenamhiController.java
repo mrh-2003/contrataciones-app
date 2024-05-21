@@ -25,4 +25,10 @@ public class SenamhiController {
         return ResponseEntity.ok(senamhiService.findProveedorByDniRUc(dniRuc));
     }
 
+    @PostMapping("/trabajadores")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMINISTRADOR')")
+    public ResponseEntity<Trabajador> saveTrabajador(@RequestBody Trabajador trabajador) {
+        return ResponseEntity.ok(senamhiService.save(trabajador));
+    }
+
 }
