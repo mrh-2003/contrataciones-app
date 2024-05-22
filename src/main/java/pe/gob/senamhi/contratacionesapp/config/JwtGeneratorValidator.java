@@ -22,7 +22,7 @@ public class JwtGeneratorValidator {
 	@Autowired
     AccesoService accesoService;
 	
-    private final String SECRET = "codeWithRaman";
+    private final String SECRET = "mrh20035h8u2b2e2r2c1a9l6i7z9a6y3a";
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);

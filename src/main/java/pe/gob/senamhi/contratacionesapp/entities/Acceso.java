@@ -9,9 +9,9 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 @Data
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 @Table(name= "accesos")
 public class Acceso {
 	@Id

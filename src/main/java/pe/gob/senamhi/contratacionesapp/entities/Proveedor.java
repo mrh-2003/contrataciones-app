@@ -6,10 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Entity
-@Table(name = "proveedores")
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "proveedores")
 public class Proveedor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
