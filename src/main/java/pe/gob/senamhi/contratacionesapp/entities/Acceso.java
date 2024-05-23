@@ -47,6 +47,4 @@ public class Acceso {
 	public void setRole(Role role) {
 		this.roles.add(role);
 	}
-
-
 }
