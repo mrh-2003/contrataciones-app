@@ -21,7 +21,6 @@ public class FileService {
     @Value("${media.location}")
     private String mediaLocation;
     private Path rootLocation;
-
     @PostConstruct
     public void init() {
         rootLocation = Paths.get(mediaLocation);
@@ -31,7 +30,6 @@ public class FileService {
             throw new RuntimeException("Could not initialize storage", e);
         }
     }
-
     public String store(MultipartFile file) {
         try {
             if (file.isEmpty()) {
@@ -49,7 +47,6 @@ public class FileService {
             throw new RuntimeException("Failed to store file " + file.getOriginalFilename(), e);
         }
     }
-
     public Resource loadFile(String filename) {
         try {
             Path file = rootLocation.resolve(filename);
@@ -63,5 +60,4 @@ public class FileService {
             throw new RuntimeException("Could not read the file!", e);
         }
     }
-
 }

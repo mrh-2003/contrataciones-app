@@ -54,6 +54,4 @@ public class Contratacion {
     private String telefono;
     @Column(nullable = false)
     private String correo;
-
-
 }

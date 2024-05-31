@@ -1,5 +1,4 @@
 package pe.gob.senamhi.contratacionesapp.config;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,21 +13,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import pe.gob.senamhi.contratacionesapp.services.AccesoService;
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
-
 	@Autowired
 	AccesoService userDetailsService;
-
-
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
@@ -36,25 +30,22 @@ public class SecurityConfig {
 		auth.setPasswordEncoder(passwordEncoder());
 		return auth;
 	}
-
 	@Bean
-	public AuthenticationManager authenticationManager(AuthenticationConfiguration autheticationConfiguration)
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
 			throws Exception {
-		return autheticationConfiguration.getAuthenticationManager();
+		return authenticationConfiguration.getAuthenticationManager();
 	}
-
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable()
 				.authorizeRequests()
-				//.antMatchers("/registration","/genToken").permitAll()
-				//.anyRequest().authenticated()
+				.antMatchers("/registration","/genToken").permitAll()
+				.anyRequest().authenticated()
 				.anyRequest().permitAll()
 				.and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		 http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
 		return http.build();
-
 	}
 	@Bean
     public JwtFilter authenticationTokenFilterBean() throws Exception {

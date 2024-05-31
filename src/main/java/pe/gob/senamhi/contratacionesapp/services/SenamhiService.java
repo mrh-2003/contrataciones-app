@@ -19,9 +19,7 @@ public class SenamhiService {
     public Proveedor findProveedorByDniRUc(String dniRuc) {
         return proveedorRepository.findByDniRuc(dniRuc);
     }
-
     public Trabajador save(Trabajador trabajador) {
         return trabajadorRepository.save(trabajador);
     }
-
    }

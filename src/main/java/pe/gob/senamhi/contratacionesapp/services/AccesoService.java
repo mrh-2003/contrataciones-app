@@ -24,25 +24,19 @@ import java.util.stream.Collectors;
 
 @Service
 public class AccesoService implements UserDetailsService {
-
 	@Autowired
 	IAccesoRepository accesoRepository;
-	
 	@Autowired
 	IRoleRepository roleRepo;
-	
 	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		 Acceso acceso = accesoRepository.findByUsuario(username);
 	     return new org.springframework.security.core.userdetails.User(acceso.getUsuario(), acceso.getContrasenia(),acceso.getEstado() , true, true, true,  mapRolesToAuthorities(acceso.getRoles()));
 	}
-	
 	public Collection<? extends GrantedAuthority> mapRolesToAuthorities(Set<Role> roles){
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getRole())).collect(Collectors.toList());
 	}
-
 	public Acceso save(AccesoDTO userRegisteredDTO) {
 		ModelMapper m = new ModelMapper();
 		Acceso acceso = m.map(userRegisteredDTO, Acceso.class);
@@ -71,11 +65,9 @@ public class AccesoService implements UserDetailsService {
 	public Acceso findByNombreUsuario(String username) {
 		return accesoRepository.findByUsuario(username);
 	}
-
 	public void deleteById(Long id) {
 		accesoRepository.deleteById(id);
 	}
-
 	public List<Acceso> findAll() {
 		return accesoRepository.findAll(Sort.by(Sort.Direction.DESC, "codigo"));
 	}

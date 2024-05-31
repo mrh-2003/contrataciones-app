@@ -13,24 +13,19 @@ import java.util.List;
 public class ContratacionService {
     @Autowired
     private IContratacionRepository contratacionRepository;
-
     public Contratacion save(Contratacion contratacion) {
         contratacion.setFechaCreacion(LocalDate.now());
         return contratacionRepository.save(contratacion);
     }
-
     public Contratacion update(Contratacion contratacion) {
         return contratacionRepository.save(contratacion);
     }
-
     public Contratacion findById(Long id) {
         return contratacionRepository.findById(id).orElse(null);
     }
-
     public void deleteById(Long id) {
         contratacionRepository.deleteById(id);
     }
-
     public List<Contratacion> findAll() {
         return contratacionRepository.findAll(Sort.by(Sort.Direction.DESC, "codigo"));
     }

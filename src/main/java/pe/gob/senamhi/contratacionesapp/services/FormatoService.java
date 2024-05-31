@@ -15,15 +15,12 @@ public class FormatoService {
     public Formato save(Formato formato) {
         return formatoRepository.save(formato);
     }
-
     public Formato findById(Long id) {
         return formatoRepository.findById(id).orElse(null);
     }
-
     public void deleteById(Long id) {
         formatoRepository.deleteById(id);
     }
-
     public List<Formato> findAll() {
         return formatoRepository.findAll(Sort.by(Sort.Direction.DESC, "codigo"));
     }
