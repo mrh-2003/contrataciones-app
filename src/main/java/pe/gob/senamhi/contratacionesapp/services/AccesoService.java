@@ -41,8 +41,8 @@ public class AccesoService implements UserDetailsService {
 		ModelMapper m = new ModelMapper();
 		Acceso acceso = m.map(userRegisteredDTO, Acceso.class);
 		Role role = new Role();
-		if(userRegisteredDTO.getRol().equals("USUARIO"))
-		  	role = roleRepo.findByRole("ROLE_USUARIO");
+		if(userRegisteredDTO.getRol().equals("PERSONAL LOGISTICO"))
+		  	role = roleRepo.findByRole("ROLE_PERSONAL_LOGISTICO");
 		else if(userRegisteredDTO.getRol().equals("ADMINISTRADOR"))
 		 	role = roleRepo.findByRole("ROLE_ADMINISTRADOR");
 		acceso.setContrasenia(passwordEncoder.encode(userRegisteredDTO.getContrasenia()));

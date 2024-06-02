@@ -39,8 +39,8 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable()
 				.authorizeRequests()
-				.antMatchers("/registration","/genToken").permitAll()
-				.anyRequest().authenticated()
+				//.antMatchers("/accesos/registration","/accesos/genToken","/contrataciones/current","/formatos/files/*").permitAll()
+				//.anyRequest().authenticated()
 				.anyRequest().permitAll()
 				.and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

@@ -11,8 +11,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import pe.gob.senamhi.contratacionesapp.config.JwtGeneratorValidator;
@@ -30,22 +28,16 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 
 public class AccesoController {
-
 	@Autowired
 	IAccesoRepository userRepo;
-
 	@Autowired
 	AuthenticationManager authManager;
-
 	@Autowired
 	JwtGeneratorValidator jwtGenVal;
-	
 	@Autowired
 	BCryptPasswordEncoder bcCryptPasswordEncoder;
-	
 	@Autowired
 	AccesoService accesoService;
-
 	@PostMapping("/registration")
 	public ResponseEntity<Object> registerUser(@RequestBody AccesoDTO accesoDto) {
 		Acceso users =  accesoService.save(accesoDto);
@@ -54,7 +46,6 @@ public class AccesoController {
 		else
 			return generateRespose("User saved successfully : " + users.getCodigo(), HttpStatus.OK, users);
 	}
-
 	@PostMapping("/genToken")
 	public ResponseEntity<Map<String, Object>> generateJwtToken(@RequestBody AccesoDTO accesoDto) throws Exception {
 		
@@ -69,9 +60,6 @@ public class AccesoController {
 		response.put("role", claims.get("role"));
 		return ResponseEntity.ok(response);
 	}
-
-	
-	
 	public ResponseEntity<Object> generateRespose(String message, HttpStatus st, Object responseobj) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -98,7 +86,6 @@ public class AccesoController {
 			return ResponseEntity.ok(false);
 		}
 	}
-
 	@GetMapping("/protectedRole/{token}")
 	public ResponseEntity<Boolean> protectedRouteRol(@PathVariable("token") String token) {
 		try {
@@ -114,7 +101,6 @@ public class AccesoController {
 			return ResponseEntity.ok(false);
 		}
 	}
-
 	@GetMapping("/getAcceso/{token}")
 	public ResponseEntity<AccesoSummaryDTO> getAccesoByToken(@PathVariable("token") String token) {
 		try {
@@ -130,30 +116,25 @@ public class AccesoController {
 			return ResponseEntity.ok(null);
 		}
 	}
-
 	@GetMapping
 	@PreAuthorize("hasAuthority('ROLE_ADMINISTRADOR')")
 	public ResponseEntity<List<Acceso>> findAll() {
 		return ResponseEntity.ok(accesoService.findAll());
 	}
-
 	@GetMapping("/{id}")
 	@PreAuthorize("hasAuthority('ROLE_ADMINISTRADOR')")
 	public ResponseEntity<Acceso> findById(@PathVariable("id")  Long id) {
 		return ResponseEntity.ok(accesoService.findById(id));
 	}
-
 	@DeleteMapping("/delete/{id}")
 	@PreAuthorize("hasAuthority('ROLE_ADMINISTRADOR')")
 	public ResponseEntity<Void> deleteById(@PathVariable("id")  Long id) {
 		accesoService.deleteById(id);
 		return ResponseEntity.ok().build();
 	}
-
 	@PutMapping
 	@PreAuthorize("hasAuthority('ROLE_ADMINISTRADOR')")
 	public ResponseEntity<Acceso> update(@RequestBody AccesoDTO acceso) {
 		return ResponseEntity.ok(accesoService.update(acceso));
 	}
-
 }

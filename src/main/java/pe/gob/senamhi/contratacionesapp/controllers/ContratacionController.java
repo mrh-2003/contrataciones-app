@@ -19,8 +19,6 @@ import pe.gob.senamhi.contratacionesapp.services.FileService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.io.FilenameUtils;
@@ -31,7 +29,6 @@ import org.apache.commons.io.FilenameUtils;
 public class ContratacionController {
     @Autowired
     private ContratacionService contratacionService;
-
     @Autowired
     private FileService fileService;
     @Autowired
@@ -40,9 +37,8 @@ public class ContratacionController {
     JwtGeneratorValidator jwtGen;
     @Autowired
     AccesoService accesoService;
-
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ROLE_USUARIO', 'ROLE_ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ROLE_PERSONAL_LOGISTICO', 'ROLE_ADMINISTRADOR')")
     public ResponseEntity<List<Contratacion>> findAll(@RequestHeader("Authorization") String authorizationHeader) {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             String token = authorizationHeader.substring(7); // Eliminar "Bearer " para obtener solo el token
@@ -57,34 +53,33 @@ public class ContratacionController {
             return ResponseEntity.ok(contratacionService.findAll());
         }
     }
-
+    @GetMapping("/current")
+    public ResponseEntity<List<Contratacion>> findAllCurrentYear(){
+        return ResponseEntity.ok(contratacionService.findAllByYear());
+    }
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ROLE_USUARIO', 'ROLE_ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ROLE_PERSONAL_LOGISTICO', 'ROLE_ADMINISTRADOR')")
     public ResponseEntity<Contratacion> findById(@PathVariable("id")  Long id) {
         return ResponseEntity.ok(contratacionService.findById(id));
     }
-
     @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasAnyAuthority('ROLE_USUARIO', 'ROLE_ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ROLE_PERSONAL_LOGISTICO', 'ROLE_ADMINISTRADOR')")
     public ResponseEntity<Void> deleteById(@PathVariable("id")  Long id) {
         contratacionService.deleteById(id);
         return ResponseEntity.ok().build();
     }
-
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ROLE_USUARIO', 'ROLE_ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ROLE_PERSONAL_LOGISTICO', 'ROLE_ADMINISTRADOR')")
     public ResponseEntity<Contratacion> save(@RequestBody Contratacion contratacion) {
         return ResponseEntity.ok(contratacionService.save(contratacion));
     }
-
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ROLE_USUARIO', 'ROLE_ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ROLE_PERSONAL_LOGISTICO', 'ROLE_ADMINISTRADOR')")
     public ResponseEntity<Contratacion> update(@RequestBody Contratacion contratacion) {
         return ResponseEntity.ok(contratacionService.update(contratacion));
     }
-
     @PostMapping("/upload")
-    @PreAuthorize("hasAnyAuthority('ROLE_USUARIO', 'ROLE_ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ROLE_PERSONAL_LOGISTICO', 'ROLE_ADMINISTRADOR')")
     public ResponseEntity<Map<String, String>> uploadFile(@RequestParam("file") MultipartFile file) {
         String path = fileService.store(file);
         String host = request.getRequestURL().toString()
@@ -95,30 +90,22 @@ public class ContratacionController {
                 toUriString();
         return ResponseEntity.ok(Map.of("url", url));
     }
-
     @GetMapping("/files/{filename:.*}")
     public ResponseEntity<Resource> getFile(@PathVariable String filename) throws IOException {
         Resource file = fileService.loadFile(filename);
         String contentType = determineContentType(filename);
-
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(contentType));
-
-        // Configurar el encabezado Content-Disposition para establecer el nombre del archivo
         ContentDisposition contentDisposition = ContentDisposition
                 .builder("attachment")
                 .filename(filename)
                 .build();
         headers.setContentDisposition(contentDisposition);
-
         return ResponseEntity.ok().headers(headers).body(file);
     }
 
     private String determineContentType(String filename) {
-        // Obtiene la extensión del archivo
         String extension = FilenameUtils.getExtension(filename);
-
-        // Determina el tipo de contenido basado en la extensión
         switch (extension.toLowerCase()) {
             case "pdf":
                 return "application/pdf";
@@ -128,9 +115,8 @@ public class ContratacionController {
             case "xls":
             case "xlsx":
                 return "application/vnd.ms-excel";
-            // Agrega más casos según los tipos de archivo que necesites manejar
             default:
-                return "application/octet-stream"; // Tipo de contenido por defecto
+                return "application/octet-stream";
         }
     }
 }

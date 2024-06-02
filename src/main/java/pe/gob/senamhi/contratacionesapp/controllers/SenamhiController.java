@@ -15,17 +15,16 @@ public class SenamhiController {
     @Autowired
     private SenamhiService senamhiService;
     @GetMapping("/trabajadores/findByDni/{dni}")
-    @PreAuthorize("hasAnyAuthority('ROLE_USUARIO', 'ROLE_ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ROLE_PERSONAL_LOGISTICO', 'ROLE_ADMINISTRADOR')")
     public ResponseEntity<Trabajador> findTrabajadorByDni(@PathVariable("dni")  String dni) {
         System.out.println("dni: " + dni);
         return ResponseEntity.ok(senamhiService.findTrabajadorByDni(dni));
     }
     @GetMapping("/proveedores/findByDniRuc/{dniRuc}")
-    @PreAuthorize("hasAnyAuthority('ROLE_USUARIO', 'ROLE_ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ROLE_PERSONAL_LOGISTICO', 'ROLE_ADMINISTRADOR')")
     public ResponseEntity<Proveedor> findProveedorByDniRuc(@PathVariable("dniRuc")  String dniRuc) {
         return ResponseEntity.ok(senamhiService.findProveedorByDniRUc(dniRuc));
     }
-
     @PostMapping("/trabajadores")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMINISTRADOR')")
     public ResponseEntity<Trabajador> saveTrabajador(@RequestBody Trabajador trabajador) {

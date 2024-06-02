@@ -29,6 +29,11 @@ public class ContratacionService {
     public List<Contratacion> findAll() {
         return contratacionRepository.findAll(Sort.by(Sort.Direction.DESC, "codigo"));
     }
+    public List<Contratacion> findAllByYear(){
+        Integer currentYear = LocalDate.now().getYear();
+        System.out.println(currentYear);
+        return contratacionRepository.findAllByFechaPublicacionYear(currentYear);
+    }
     public List<Contratacion> findAllByCodigoAcceso(Long id) {
         return contratacionRepository.findAllByCodigoAcceso(id);
     }
