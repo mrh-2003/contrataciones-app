@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface IContratacionRepository extends JpaRepository<Contratacion, Long> {
     List<Contratacion> findAllByCodigoAcceso(Long id);
-    @Query("SELECT c FROM Contratacion c WHERE YEAR(c.fechaPublicacion) = :year")
+    @Query("SELECT c FROM Contratacion c WHERE YEAR(c.fechaPublicacion) = :year AND c.fechaPublicacion <= CURRENT_DATE")
     List<Contratacion> findAllByFechaPublicacionYear(@Param("year") int year);
 
 }

@@ -35,5 +35,7 @@ public class Convocado {
     @Column(nullable = false)
     private LocalDate fechaCreacion;
     @Column(nullable = false)
-    private Boolean estado;
+    private String estado;
+    @Column(nullable = false)
+    private Long codigoContratacion;
 }

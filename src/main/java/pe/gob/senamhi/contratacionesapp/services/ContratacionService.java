@@ -31,7 +31,6 @@ public class ContratacionService {
     }
     public List<Contratacion> findAllByYear(){
         Integer currentYear = LocalDate.now().getYear();
-        System.out.println(currentYear);
         return contratacionRepository.findAllByFechaPublicacionYear(currentYear);
     }
     public List<Contratacion> findAllByCodigoAcceso(Long id) {

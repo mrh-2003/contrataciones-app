@@ -6,11 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import pe.gob.senamhi.contratacionesapp.entities.Acceso;
-import pe.gob.senamhi.contratacionesapp.entities.Proveedor;
 import pe.gob.senamhi.contratacionesapp.entities.Role;
 import pe.gob.senamhi.contratacionesapp.entities.Trabajador;
 import pe.gob.senamhi.contratacionesapp.repositories.IAccesoRepository;
-import pe.gob.senamhi.contratacionesapp.repositories.IProveedorRepository;
 import pe.gob.senamhi.contratacionesapp.repositories.IRoleRepository;
 import pe.gob.senamhi.contratacionesapp.repositories.ITrabajadorRepository;
 
@@ -27,7 +25,6 @@ public class ContratacionesAppApplication {
 
     @Bean
     public CommandLineRunner createRole(IRoleRepository roleRepository,
-                                        IProveedorRepository proveedorRepository,
                                         ITrabajadorRepository trabajadorRepository,
                                         IAccesoRepository accesoRepository,
                                         BCryptPasswordEncoder passwordEncoder) {
@@ -52,14 +49,11 @@ public class ContratacionesAppApplication {
                         true,
                         roles
                 ));
-                proveedorRepository.save(new Proveedor(1L, "12345678", "Juan Gonzales", "Perez", "Gonzales", "Av. Principal 123", "987654321", "gonzalesperez@example.com"));
-                proveedorRepository.save(new Proveedor(2L, "87654321", "Maria Lopez", "Garcia", "Lopez", "Calle Secundaria 456", "654321987", "lopezgarcia@example.com"));
-                proveedorRepository.save(new Proveedor(3L, "19283746", "Pedro Martinez", "Gomez", "Martinez", "Jr. Independencia 789", "321987654", "martinezgomez@example.com"));
 
                 // Inserts para trabajadores
-                trabajadorRepository.save(new Trabajador(1L, "12345678", "Jose Flores", "Perez", "Flores", "001", "001", "Lima", "001", "Administrador"));
-                trabajadorRepository.save(new Trabajador(2L, "87654321", "Ana Gomez", "Garcia", "Gomez", "002", "002", "Arequipa", "002", "Contador"));
-                trabajadorRepository.save(new Trabajador(3L, "19283746", "Juan Torres", "Gonzales", "Torres", "003", "003", "Cusco", "003", "Analista"));
+                trabajadorRepository.save(new Trabajador("12345678", "Jose Flores", "Perez", "Flores", "001", "001", "Lima", "001", "Administrador"));
+                trabajadorRepository.save(new Trabajador("87654321", "Ana Gomez", "Garcia", "Gomez", "002", "002", "Arequipa", "002", "Contador"));
+                trabajadorRepository.save(new Trabajador("19283746", "Juan Torres", "Gonzales", "Torres", "003", "003", "Cusco", "003", "Analista"));
             }
         };
     }

@@ -35,23 +35,15 @@ public class Contratacion {
     @Column(nullable = false)
     private Long codigoAcceso;
     @Column(nullable = false)
-    private String url;
+    private String urlFormato;
+    @Column(nullable = false)
+    private String urlConvocatoria;
+    @Column(nullable = false)
+    private String urlResultado;
     @Column(nullable = false)
     private LocalDate fechaCreacion;
     @Column(nullable = false)
     private String estado;
     @Column(nullable = false)
-    private String dniRuc;
-    @Column(nullable = false)
-    private String nombre;
-    @Column(nullable = false)
-    private String apellidoPaterno;
-    @Column(nullable = false)
-    private String apellidoMaterno;
-    @Column(nullable = false)
-    private String direccion;
-    @Column(nullable = false)
-    private String telefono;
-    @Column(nullable = false)
-    private String correo;
+    private String numeroExpediente;
 }

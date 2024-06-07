@@ -12,22 +12,19 @@ import lombok.NoArgsConstructor;
 @Table(name = "trabajadores")
 public class Trabajador {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long codigo;
-    @Column(nullable = false, unique = true)
     private String dni;
     @Column(nullable = false)
     private String nombre;
     @Column(nullable = false)
-    private String apellidoPaterno;
+    private String apePaterno;
     @Column(nullable = false)
-    private String apellidoMaterno;
+    private String apeMaterno;
     @Column(nullable = false)
-    private String codigoSenamhi;
+    private String codigoEmpleado;
     @Column(nullable = false)
-    private String codigoSede;
+    private String codigoZonal;
     @Column(nullable = false)
-    private String sede;
+    private String zonal;
     @Column(nullable = false)
     private String codigoCargo;
     @Column(nullable = false)
