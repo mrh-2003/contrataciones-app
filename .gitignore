@@ -31,3 +31,12 @@ build/
 
 ### VS Code ###
 .vscode/
+
+formatos
+formatos/**
+
+# Ignorar application.properties
+/src/main/resources/application.properties
+
+# Ignorar pom.xml
+pom.xml

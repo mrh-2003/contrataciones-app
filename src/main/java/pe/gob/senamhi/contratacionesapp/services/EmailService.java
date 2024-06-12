@@ -1,6 +1,7 @@
 package pe.gob.senamhi.contratacionesapp.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ public class EmailService {
         message.setTo(toEmail);
         message.setSubject(subject);
         message.setText(body);
-        message.setFrom("tu_correo@outlook.com");
+        //message.setFrom("tu_correo@outlook.com");
         mailSender.send(message);
     }
 }

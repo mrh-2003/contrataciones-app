@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.client.RestTemplate;
 import pe.gob.senamhi.contratacionesapp.entities.Acceso;
 import pe.gob.senamhi.contratacionesapp.entities.Role;
 import pe.gob.senamhi.contratacionesapp.entities.Trabajador;
@@ -22,10 +23,12 @@ public class ContratacionesAppApplication {
     public static void main(String[] args) {
         SpringApplication.run(ContratacionesAppApplication.class, args);
     }
-
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
     @Bean
     public CommandLineRunner createRole(IRoleRepository roleRepository,
-                                        ITrabajadorRepository trabajadorRepository,
                                         IAccesoRepository accesoRepository,
                                         BCryptPasswordEncoder passwordEncoder) {
         return (args) -> {
@@ -49,11 +52,6 @@ public class ContratacionesAppApplication {
                         true,
                         roles
                 ));
-
-                // Inserts para trabajadores
-                trabajadorRepository.save(new Trabajador("12345678", "Jose Flores", "Perez", "Flores", "001", "001", "Lima", "001", "Administrador"));
-                trabajadorRepository.save(new Trabajador("87654321", "Ana Gomez", "Garcia", "Gomez", "002", "002", "Arequipa", "002", "Contador"));
-                trabajadorRepository.save(new Trabajador("19283746", "Juan Torres", "Gonzales", "Torres", "003", "003", "Cusco", "003", "Analista"));
             }
         };
     }

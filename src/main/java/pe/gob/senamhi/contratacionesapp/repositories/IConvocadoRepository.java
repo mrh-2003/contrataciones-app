@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface IConvocadoRepository extends JpaRepository<Convocado, Long> {
     public List<Convocado> findAllByCodigoContratacion(Long codigo);
-    public boolean existsAllByDniRucAndCodigoContratacion(String dniRuc, Long codigo);
+    public List<Convocado> findAllByDniRucAndCodigoContratacion(String dniRuc, Long codigo);
 }

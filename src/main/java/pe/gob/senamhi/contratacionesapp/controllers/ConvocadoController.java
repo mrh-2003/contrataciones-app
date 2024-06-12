@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import pe.gob.senamhi.contratacionesapp.entities.Convocado;
 import pe.gob.senamhi.contratacionesapp.services.ConvocadoService;
+import pe.gob.senamhi.contratacionesapp.services.EmailService;
 import pe.gob.senamhi.contratacionesapp.services.FileService;
 
 import javax.servlet.http.HttpServletRequest;
