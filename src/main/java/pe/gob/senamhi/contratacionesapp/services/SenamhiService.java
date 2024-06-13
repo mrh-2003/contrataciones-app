@@ -5,11 +5,15 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import pe.gob.senamhi.contratacionesapp.dtos.ApiRespuestaDTO;
 import pe.gob.senamhi.contratacionesapp.dtos.ConsultaDTO;
 import pe.gob.senamhi.contratacionesapp.entities.Trabajador;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,32 +23,41 @@ public class SenamhiService {
     private RestTemplate restTemplate;
     public List<Trabajador> getApiResponse(ConsultaDTO consultaDTO) {
         String url = "http://172.25.0.247:9091/ws-personal-ws/personal/getdepartamento";
-        // Configurar los encabezados de la solicitud
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-
-        // Crear una entidad HttpEntity con el objeto ConsultaDTO y los encabezados
         HttpEntity<ConsultaDTO> requestEntity = new HttpEntity<>(consultaDTO, headers);
+        RestTemplate restTemplate = new RestTemplate();
 
-        // Enviar la solicitud POST y obtener la respuesta
-        ApiRespuestaDTO response = restTemplate.postForObject(url, requestEntity, ApiRespuestaDTO.class);
-
-        // Procesar la respuesta y mapear los datos a la lista de Trabajador
-        if (response != null && response.getEstado() == 1) {
-            return response.getListPersonal().stream()
-                    .map(personal -> new Trabajador(
-                            personal.getDni(),
-                            personal.getNombre(),
-                            personal.getApePaterno(),
-                            personal.getApeMaterno(),
-                            personal.getCodigoEmpleado(),
-                            personal.getCodigoZonal(),
-                            personal.getZonal(),
-                            personal.getCodigoCargo(),
-                            personal.getCargo()
-                    ))
-                    .collect(Collectors.toList());
+        try {
+            ApiRespuestaDTO response = restTemplate.postForObject(url, requestEntity, ApiRespuestaDTO.class);
+            if (response != null && response.getEstado() == 1) {
+                return response.getListPersonal().stream()
+                        .map(personal -> new Trabajador(
+                                personal.getDni(),
+                                personal.getNombre(),
+                                personal.getApePaterno(),
+                                personal.getApeMaterno(),
+                                personal.getCodigoEmpleado(),
+                                personal.getCodigoZonal(),
+                                personal.getZonal(),
+                                personal.getCodigoCargo(),
+                                personal.getCargo()
+                        ))
+                        .collect(Collectors.toList());
+            }
+        } catch (HttpClientErrorException e) {
+            // Manejo de errores del cliente (4xx)
+            System.err.println("Error del cliente: " + e.getStatusCode() + " - " + e.getResponseBodyAsString());
+        } catch (HttpServerErrorException e) {
+            // Manejo de errores del servidor (5xx)
+            System.err.println("Error del servidor: " + e.getStatusCode() + " - " + e.getResponseBodyAsString());
+        } catch (ResourceAccessException e) {
+            // Manejo de errores de acceso a recursos (e.g., problemas de conexión)
+            System.err.println("Error de acceso a recurso: " + e.getMessage());
+        } catch (Exception e) {
+            // Manejo de otros errores
+            System.err.println("Error inesperado: " + e.getMessage());
         }
-        return null;
+        return Collections.emptyList();
     }
 }

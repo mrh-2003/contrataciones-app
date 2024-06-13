@@ -38,12 +38,10 @@ public class Contratacion {
     private String urlFormato;
     @Column(nullable = false)
     private String urlConvocatoria;
-    @Column(nullable = false)
     private String urlResultado;
     @Column(nullable = false)
     private LocalDate fechaCreacion;
     @Column(nullable = false)
     private String estado;
-    @Column(nullable = false)
     private String numeroExpediente;
 }

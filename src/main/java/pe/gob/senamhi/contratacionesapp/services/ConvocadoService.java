@@ -20,7 +20,11 @@ public class ConvocadoService {
     public Convocado save(Convocado convocado) {
         convocado.setFechaCreacion(LocalDate.now());
         convocado.setEstado("Activo");
-        emailService.sendSimpleEmail(convocado.getCorreo(), "Confirmación de postulación", "Usted ha sido convocado");
+        try {
+            emailService.sendSimpleEmail(convocado.getCorreo(), "Confirmación de postulación", "Usted ha sido convocado");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         return convocadoRepository.save(convocado);
     }
     public boolean existsAllByDniRucAndCodigoContratacion(String dniRuc, Long codigo) {
