@@ -32,8 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 
-formatos
-formatos/**
+/formatos
+/formatos/**
 
 # Ignorar application.properties
 /src/main/resources/application.properties
