@@ -64,8 +64,9 @@ public class FormatoController {
         if(file != null) {
             url = saveFile(file);
             formato.setNombre(file.getOriginalFilename());
-            formato.setUrl(url);
             formato.setFechaEdicion(LocalDate.now());
+            fileService.deleteFile(FilenameUtils.getName(formato.getUrl()));
+            formato.setUrl(url);
         }
         formatoService.save(formato);
         return ResponseEntity.ok(Map.of("url", url));

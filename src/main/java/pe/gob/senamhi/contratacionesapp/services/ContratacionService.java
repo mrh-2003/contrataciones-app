@@ -15,6 +15,7 @@ public class ContratacionService {
     private IContratacionRepository contratacionRepository;
     public Contratacion save(Contratacion contratacion) {
         contratacion.setFechaCreacion(LocalDate.now());
+
         return contratacionRepository.save(contratacion);
     }
     public Contratacion update(Contratacion contratacion) {
@@ -30,7 +31,7 @@ public class ContratacionService {
         return contratacionRepository.findAll(Sort.by(Sort.Direction.DESC, "codigo"));
     }
     public List<Contratacion> findAllByYear(){
-        Integer currentYear = LocalDate.now().getYear();
+        int currentYear = LocalDate.now().getYear();
         return contratacionRepository.findAllByFechaPublicacionYear(currentYear);
     }
     public List<Contratacion> findAllByCodigoAcceso(Long id) {

@@ -16,8 +16,6 @@ public class Contratacion {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long codigo;
-    @ManyToOne
-    private Formato formato;
     @Column(nullable = false)
     private String descripcion;
     @Column(nullable = false)

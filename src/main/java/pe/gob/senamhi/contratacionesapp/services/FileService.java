@@ -60,4 +60,16 @@ public class FileService {
             throw new RuntimeException("Could not read the file!", e);
         }
     }
+    public void deleteFile(String filename) {
+        try {
+            Path file = rootLocation.resolve(filename);
+            if (Files.exists(file) && Files.isRegularFile(file)) {
+                Files.delete(file);
+            } else {
+                throw new RuntimeException("File not found: " + filename);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Could not delete the file " + filename, e);
+        }
+    }
 }
