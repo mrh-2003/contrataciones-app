@@ -20,7 +20,7 @@ public class EmailService {
         helper.setText(body, true); // Set to true to indicate that it's HTML
         helper.setTo(toEmail);
         helper.setSubject(subject);
-        helper.setFrom("huberjuanillo@hotmail.com");
+        helper.setFrom("proceso_08uit@senamhi.gob.pe");
         mailSender.send(mimeMessage);
     }
 }
