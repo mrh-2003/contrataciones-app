@@ -39,8 +39,8 @@ public class ContratacionesAppApplication {
                 roles.add(role);
                 accesoRepository.save(new Acceso(
                         Long.valueOf(0),
-                        "adminn",
-                        passwordEncoder.encode("adminn"),
+                        "ADMINN",
+                        passwordEncoder.encode("ADMINN"),
                         "ADMINISTRADOR",
                         "0",
                         "ADMINISTRADOR",

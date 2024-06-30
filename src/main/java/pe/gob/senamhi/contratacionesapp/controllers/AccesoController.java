@@ -40,6 +40,9 @@ public class AccesoController {
 	AccesoService accesoService;
 	@PostMapping("/registration")
 	public ResponseEntity<Object> registerUser(@RequestBody AccesoDTO accesoDto) {
+		if(userRepo.findByUsuario(accesoDto.getUsuario()) != null) {
+			throw new RuntimeException("User already exists");
+		}
 		Acceso users =  accesoService.save(accesoDto);
 		if (users.equals(null))
 			return generateRespose("Not able to save user ", HttpStatus.BAD_REQUEST, accesoDto);

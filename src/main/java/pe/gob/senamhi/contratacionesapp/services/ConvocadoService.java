@@ -25,6 +25,7 @@ public class ConvocadoService {
     public Convocado save(Convocado convocado) {
         convocado.setFechaCreacion(LocalDate.now());
         convocado.setEstado("Activo");
+        convocado = convocadoRepository.save(convocado);
         Contratacion contra = contratacionRepository.findById(convocado.getCodigoContratacion()).orElse(new Contratacion());
         String fechaHora = LocalDate.now() + " " + LocalTime.now().toString().split("\\.")[0];
         String body = "<html>" +
@@ -54,7 +55,7 @@ public class ConvocadoService {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return convocadoRepository.save(convocado);
+        return convocado;
     }
     public boolean existsAllByDniRucAndCodigoContratacion(String dniRuc, Long codigo) {
         return !convocadoRepository.findAllByDniRucAndCodigoContratacion(dniRuc, codigo).isEmpty();
